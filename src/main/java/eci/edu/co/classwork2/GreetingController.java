@@ -1,6 +1,4 @@
-package eci.edu.co;
-
-import java.util.concurrent.atomic.AtomicLong;
+package eci.edu.co.classwork2;
 
 @RestController
 public class GreetingController {

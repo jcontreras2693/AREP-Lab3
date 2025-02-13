@@ -1,4 +1,4 @@
-package eci.edu.co;
+package eci.edu.co.classwork2;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
