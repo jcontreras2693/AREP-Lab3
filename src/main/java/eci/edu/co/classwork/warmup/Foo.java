@@ -1,4 +1,4 @@
-package eci.edu.co.classwork;
+package eci.edu.co.classwork.warmup;
 
 public class Foo {
     @Test public static void m1() { }

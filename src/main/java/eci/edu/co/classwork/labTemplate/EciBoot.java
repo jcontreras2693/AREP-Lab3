@@ -1,4 +1,8 @@
-package eci.edu.co.classwork2;
+package eci.edu.co.classwork.labTemplate;
+
+import eci.edu.co.annotations.GetMapping;
+import eci.edu.co.annotations.RestController;
+import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -44,4 +48,32 @@ public class EciBoot {
             Logger.getLogger(EciBoot.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+
+//    public static void loadComponents() {
+//        try {
+//            // Explorar el classpath en busca de clases anotadas con @RestController
+//            for (Class<?> clazz : findAllClasses()) {
+//                if (clazz.isAnnotationPresent(RestController.class)) {
+//                    System.out.println("RestController found: " + clazz.getName());
+//                    Object controllerInstance = clazz.getDeclaredConstructor().newInstance();
+//
+//                    for (Method method : clazz.getDeclaredMethods()) {
+//                        if (method.isAnnotationPresent(GetMapping.class)) {
+//                            GetMapping mapping = method.getAnnotation(GetMapping.class);
+//                            System.out.println("Registering route: " + mapping.value()[0]);
+//                            services.put(mapping.value()[0], method);
+//                            controllers.put(mapping.value()[0], controllerInstance);
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            throw new RuntimeException("Error loading components", e);
+//        }
+//    }
+//
+//    private static Iterable<Class<?>> findAllClasses() {
+//        Reflections reflections = new Reflections("eci.edu.co");
+//        return reflections.getTypesAnnotatedWith(RestController.class);
+//    }
 }

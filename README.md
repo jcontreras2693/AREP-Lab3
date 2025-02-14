@@ -56,7 +56,7 @@ mvn clean compile
 4. Execute the project with the following command:
 
 ```
-mvn exec:java -Dexec.mainClass="eci.edu.arep.WebApplication"
+mvn exec:java -Dexec.mainClass="eci.edu.co.WebApplication"
 ```
 5. The installation process will have been successful if you see a message like this in your command console.
 
@@ -72,7 +72,7 @@ Web page employment example.
 
 ## Running the Tests
 
-The tests performed verify the getters and setters of the Pokémon class, as well as the GET and POST requests of the web server using the lambda functions of WebApplication.
+The tests performed verify the getters and setters of the Pokémon class, as well as the Request and Response classes.
 
 To run the tests from the console, use the following command:
 

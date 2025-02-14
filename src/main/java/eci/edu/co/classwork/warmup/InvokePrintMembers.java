@@ -1,8 +1,7 @@
-package eci.edu.co.classwork;
+package eci.edu.co.classwork.warmup;
 
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 public class InvokePrintMembers {
     public static void main(String... args) {

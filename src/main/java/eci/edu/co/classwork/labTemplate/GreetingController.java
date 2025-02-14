@@ -1,4 +1,8 @@
-package eci.edu.co.classwork2;
+package eci.edu.co.classwork.labTemplate;
+
+import eci.edu.co.annotations.GetMapping;
+import eci.edu.co.annotations.RequestParam;
+import eci.edu.co.annotations.RestController;
 
 @RestController
 public class GreetingController {

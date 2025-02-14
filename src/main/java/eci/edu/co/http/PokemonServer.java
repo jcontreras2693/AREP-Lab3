@@ -33,8 +33,8 @@ public class PokemonServer {
 
     public static void start(int port) throws IOException {
         // Pokémon inicial
-//        Pokemon pikachu = new Pokemon("Pikachu", 25);
-//        pokemonTeam.add(pikachu);
+        Pokemon pikachu = new Pokemon("Pikachu", 25);
+        pokemonTeam.add(pikachu);
 
         ServerSocket serverSocket = new ServerSocket(port);
         System.out.println("Servidor iniciado en el puerto " + port);
