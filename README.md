@@ -58,7 +58,7 @@ mvn clean compile
 ```
 mvn exec:java -Dexec.mainClass="eci.edu.co.WebApplication"
 ```
-5. The installation process will have been successful if you see a message like this in your command console.
+5. The installation process will have been successful if you see a message like this in your command console. (If this steps didn't work, execute the project directly from IntelliJ)
 
 ![](src/main/resources/images/succes.png)
 
