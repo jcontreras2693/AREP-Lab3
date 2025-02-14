@@ -44,7 +44,7 @@ git clone https://github.com/jcontreras2693/AREP-Lab2.git
 2. Navigate to the project directory.
 
 ```
-cd AREP-Lab2
+cd AREP-Lab3
 ```
 
 3. Build the project by running the following command:
@@ -67,8 +67,69 @@ mvn exec:java -Dexec.mainClass="eci.edu.co.WebApplication"
 Home page example.
 ![](src/main/resources/images/home-page.png)
 
-Web page employment example.
+Home page Post Request example.
 ![](src/main/resources/images/employed-page.png)
+
+Get Request on /api/pokemon.
+![](src/main/resources/images/api-pokemon.png)
+
+## Rest Controllers
+- PokemonController
+    ```
+    @RestController
+    public class PokemonController {
+        private final List<Pokemon> pokemonTeam = new ArrayList<>();
+    
+        public PokemonController() {
+            // Se agrega un Pokémon inicial
+            pokemonTeam.add(new Pokemon("Pikachu", 25));
+        }
+    
+        @GetMapping("/api/pokemon")
+        public List<Pokemon> getPokemonTeam() {
+            return pokemonTeam;
+        }
+    
+        @PostMapping("/api/pokemon")
+        public Map<String, String> addPokemon(@RequestBody Map<String, String> data) {
+            if (pokemonTeam.size() >= 6) {
+                return Map.of("error", "Equipo completo");
+            }
+    
+            if (data.containsKey("name") && data.containsKey("level")) {
+                try {
+                    int level = Integer.parseInt(data.get("level"));
+                    pokemonTeam.add(new Pokemon(data.get("name"), level));
+                    return Map.of("status", "success");
+                } catch (NumberFormatException e) {
+                    return Map.of("error", "Nivel inválido");
+                }
+            }
+    
+            return Map.of("error", "Faltan campos");
+        }
+    }
+    ```
+
+- ServerController
+    ```
+    @RestController
+    public class ServerController {
+    @GetMapping("/hello")
+        public String hello() {return "Hello World!";}
+    
+        @GetMapping("/greeting")
+        public String greeting(@RequestParam(value = "name", defaultValue = "World") String name){
+            return "Hello " + name;
+        }
+    
+        @GetMapping("/pi")
+        public String pi() {return Double.toString(Math.PI);}
+    
+        @GetMapping("/e")
+        public String e() {return Double.toString(Math.E);}
+    }
+  ```
 
 ## Running the Tests
 
@@ -92,7 +153,7 @@ If the tests were successful, you will see a message like this in your command c
 
 ## Authors
 
-* **Juan David Contreras Becerra** - *Taller 2 | AREP* - [AREP-Lab3](https://github.com/jcontreras2693/AREP-Lab3.git)
+* **Juan David Contreras Becerra** - *Taller 3 | AREP* - [AREP-Lab3](https://github.com/jcontreras2693/AREP-Lab3.git)
 
 ## Acknowledgements
 

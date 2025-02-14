@@ -22,6 +22,10 @@ public class PokemonController {
         return pokemonTeam;
     }
 
+    /**
+     *  Código tomado y adaptado de Ana María Durán.
+     *
+     */
     @PostMapping("/api/pokemon")
     public Map<String, String> addPokemon(@RequestBody Map<String, String> data) {
         if (pokemonTeam.size() >= 6) {

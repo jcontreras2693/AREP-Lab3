@@ -6,12 +6,12 @@ import eci.edu.co.annotations.RestController;
 
 @RestController
 public class GreetingController {
-    @GetMapping("/greeting")
+    @GetMapping("/class/greeting")
     public static String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         return "Hola" + name;
     }
 
-    @GetMapping("/pi")
+    @GetMapping("/class/pi")
     public static String pi (String value) {
         return Double.toString(Math.PI);
     }
