@@ -64,14 +64,17 @@ mvn exec:java -Dexec.mainClass="eci.edu.co.WebApplication"
 
 6. Finally, access the address [localhost:35000](http://localhost:35000/) from a web browser to interact with the web application.
 
-Home page example.
-![](src/main/resources/images/home-page.png)
+- Home page example.
 
-Home page Post Request example.
-![](src/main/resources/images/employed-page.png)
+    ![](src/main/resources/images/home-page.png)
 
-Get Request on /api/pokemon.
-![](src/main/resources/images/api-pokemon.png)
+- Home page Post Request example.
+
+    ![](src/main/resources/images/employed-page.png)
+
+- Get Request on /api/pokemon.
+
+    ![](src/main/resources/images/api-pokemon.png)
 
 ## Rest Controllers
 - PokemonController
