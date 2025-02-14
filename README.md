@@ -76,6 +76,10 @@ mvn exec:java -Dexec.mainClass="eci.edu.co.WebApplication"
 
     ![](src/main/resources/images/api-pokemon.png)
 
+- Get Request on /api/pokemon.
+
+  ![](src/main/resources/images/post-pokemon.png)
+
 ## Rest Controllers
 - PokemonController
     ```
