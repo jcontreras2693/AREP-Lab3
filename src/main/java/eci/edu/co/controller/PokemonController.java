@@ -14,7 +14,7 @@ public class PokemonController {
 
     public PokemonController() {
         // Se agrega un Pokémon inicial
-        pokemonTeam.add(new Pokemon("Pikachu", 25));
+        pokemonTeam.add(new Pokemon("Pikachu", 5));
     }
 
     @GetMapping("/api/pokemon")

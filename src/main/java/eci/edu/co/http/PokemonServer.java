@@ -210,4 +210,32 @@ public class PokemonServer {
         if (path.endsWith(".gif")) return "image/gif";
         return "application/octet-stream";
     }
+
+    public static Map<String, String> parseJson(String json) {
+        Map<String, String> map = new HashMap<>();
+
+        if (json == null || json.isEmpty()) {
+            return map; // Devuelve un mapa vacío si el JSON está vacío
+        }
+
+        json = json.trim();
+
+        if (json.startsWith("{") && json.endsWith("}")) {
+            json = json.substring(1, json.length() - 1); // Elimina llaves solo si existen
+        } else {
+            return map; // Si no es un JSON válido, devuelve un mapa vacío
+        }
+
+        String[] pairs = json.split(",");
+
+        for (String pair : pairs) {
+            String[] keyValue = pair.split(":", 2);
+            if (keyValue.length == 2) {
+                String key = keyValue[0].trim().replace("", "");
+                String value = keyValue[1].trim().replace("", "");
+                map.put(key, value);
+            }
+        }
+        return map;
+    }
 }

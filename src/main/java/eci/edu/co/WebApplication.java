@@ -10,7 +10,13 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import static eci.edu.co.http.PokemonServer.*;
+import eci.edu.co.http.PokemonServer;
+import eci.edu.co.http.Request;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.InvocationTargetException;
+
+import eci.edu.co.annotations.RequestBody;
+import eci.edu.co.annotations.RequestParam;
 
 public class WebApplication {
     public static Map<String, Method> services = new HashMap();
@@ -19,8 +25,8 @@ public class WebApplication {
     public static void main(String[] args) throws Exception {
         System.out.println("Iniciando WebApplication en forma de Mini SpringBoot...");
         loadComponents();
-        staticFiles("src/main/resources/static");
-        start(35000);
+        PokemonServer.staticFiles("src/main/resources/static");
+        PokemonServer.start(35000);
     }
 
     /**
@@ -37,12 +43,16 @@ public class WebApplication {
                     for (Method method : clazz.getDeclaredMethods()) {
                         if (method.isAnnotationPresent(GetMapping.class)) {
                             GetMapping mapping = method.getAnnotation(GetMapping.class);
+                            String path = mapping.value();
+                            PokemonServer.get(path, (req, res) -> invokeMethod(method, controllerInstance, req));
                             System.out.println("Registering GET route: " + mapping.value());
                             services.put(mapping.value(), method);
                             controllers.put(mapping.value(), controllerInstance);
                         }
                         if (method.isAnnotationPresent(PostMapping.class)) {
                             PostMapping mapping = method.getAnnotation(PostMapping.class);
+                            String path = mapping.value();
+                            PokemonServer.post(path, (req, res) -> invokeMethod(method, controllerInstance, req));
                             System.out.println("Registering POST route: " + mapping.value());
                             services.put(mapping.value(), method);
                             controllers.put(mapping.value(), controllerInstance);
@@ -58,5 +68,37 @@ public class WebApplication {
     private static Iterable<Class<?>> findAllClasses() {
         Reflections reflections = new Reflections("eci.edu.co");
         return reflections.getTypesAnnotatedWith(RestController.class);
+    }
+
+    private static String invokeMethod(Method method, Object instance, Request req) {
+        try {
+            Parameter[] parameters = method.getParameters();
+            Object[] argsForMethod = new Object[parameters.length];
+            for (int i = 0; i < parameters.length; i++) {
+                Parameter parameter = parameters[i];
+                if (parameter.isAnnotationPresent(RequestBody.class)) {
+                    if (Map.class.isAssignableFrom(parameter.getType())) {
+                        argsForMethod[i] = PokemonServer.parseJson(req.getBody());
+                    } else {
+                        argsForMethod[i] = req.getBody();
+                    }
+                } else if (parameter.isAnnotationPresent(RequestParam.class)) {
+                    RequestParam reqParam = parameter.getAnnotation(RequestParam.class);
+                    String paramName = reqParam.value();
+                    String value = req.getHeaders().get(paramName);
+                    if (value == null || value.isEmpty()) {
+                        value = reqParam.defaultValue();
+                    }
+                    argsForMethod[i] = value;
+                } else {
+                    argsForMethod[i] = null;
+                }
+            }
+            Object result = method.invoke(instance, argsForMethod);
+            return result != null ? result.toString() : "";
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+            return "{\"error\": \"Internal Server Error\"}";
+        }
     }
 }
